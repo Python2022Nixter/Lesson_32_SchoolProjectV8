@@ -130,6 +130,7 @@ DROP TABLE IF EXISTS "{TABLE_NAME_COURSES}"
 SQL_GET_POSITIONS = F"""
 SELECT {get_fields_list(POSITIONS_HEADERS)[0]}, {get_fields_list(POSITIONS_HEADERS)[1]} FROM {TABLE_NAME_POSITIONS};
 """
+
 SQL_GET_COURSES = F"""
 SELECT {get_fields_list(COURSES_HEADERS)[0]}, {get_fields_list(COURSES_HEADERS)[1]} FROM {TABLE_NAME_COURSES};
 """
@@ -139,7 +140,7 @@ SELECT {get_fields_list(PERSONS_HEADERS)[7]} FROM {TABLE_NAME_PERSONS};
 """
 
 SQL_UPDATE_TABLE_PERSONS = F"""
-UPDATE "{TABLE_NAME_PERSONS}" SET "__FIELD_NAME_TO_CHANGE__ = ? WHERE "__FIELD_NAME_TO_FILTER__ = ?";
+UPDATE "{TABLE_NAME_PERSONS}" SET "__FIELD_NAME_TO_CHANGE__" = ? WHERE "__FIELD_NAME_TO_FILTER__" = ? 
 """
 
 # menu items
@@ -147,22 +148,21 @@ MENU_ADMIN = (
     "Create table: PERSONS",
     "Add record to table: PERSONS",
     "Import table: PERSONS from csv (removing old DB table)",
-    "Drop table: PERSONS\n",
+    "Drop table: PERSONS",
     "Update table record: PERSONS\n",
     
     "Create table: POSITIONS",
     "Add record to table: POSITIONS",
     "Import table: POSITIONS from csv (removing old DB table)",
-    "Drop table: POSITIONS\n",
+    "Drop table: POSITIONS",
     "Update table record: POSITIONS\n",
     
     "Create table: COURSES",
     "Add record to table: COURSES",
     "Import table: COURSES from csv (removing old DB table)",
-    "Drop table: COURSES\n"
-    "Update table record: COURSES\n"
-    
-    
+    "Drop table: COURSES"
+    "Update table record: COURSES\n",
+   
 )
 
 MENU_STUDENT = ()
