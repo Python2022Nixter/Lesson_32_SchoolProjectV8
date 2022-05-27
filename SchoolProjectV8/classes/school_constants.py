@@ -139,8 +139,8 @@ SQL_GET_LOGIN_NAMES = F"""
 SELECT {get_fields_list(PERSONS_HEADERS)[7]} FROM {TABLE_NAME_PERSONS};
 """
 
-SQL_UPDATE_TABLE_PERSONS = F"""
-UPDATE "{TABLE_NAME_PERSONS}" SET "__FIELD_NAME_TO_CHANGE__" = ? WHERE "__FIELD_NAME_TO_FILTER__" = ? 
+SQL_UPDATE_TABLE = F"""
+UPDATE "__TABLE_NAME__" SET "__FIELD_NAME_TO_CHANGE__" = ? WHERE "__FIELD_NAME_TO_FILTER__" = ? 
 """
 
 # menu items
@@ -160,7 +160,7 @@ MENU_ADMIN = (
     "Create table: COURSES",
     "Add record to table: COURSES",
     "Import table: COURSES from csv (removing old DB table)",
-    "Drop table: COURSES"
+    "Drop table: COURSES",
     "Update table record: COURSES\n",
    
 )

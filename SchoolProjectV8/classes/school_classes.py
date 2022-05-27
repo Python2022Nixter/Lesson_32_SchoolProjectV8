@@ -147,6 +147,7 @@ class School:
                     print(self.last_message)
                     self.last_message = ""
                     match input(menu_string):
+                #    match (input(menu_string), table_name):  # TODO: add table_name to menu_string
                         case "0":
                             # EXIT
                             break
@@ -167,13 +168,11 @@ class School:
                             pass
                         case "4":
                             # Drop table: PERSONS
-                            self.__drop_table(c.SQL_DROP_TABLE_PERSONS)
-                            
+                            self.__drop_table(c.SQL_DROP_TABLE_PERSONS)                            
                             pass
                         case "5":
                             # Update table record: PERSONS
-                            self.__update_table(c.SQL_UPDATE_TABLE_PERSONS)
-                            
+                            self.__update_table(c.TABLE_NAME_PERSONS)                            
                             pass
                         
                         # Manage POSITIONS table 
@@ -193,29 +192,35 @@ class School:
                             pass
                         case "9":
                             # Drop table: POSITIONS
-                            self.__drop_table(c.SQL_DROP_TABLE_POSITIONS)
-                            
+                            self.__drop_table(c.SQL_DROP_TABLE_POSITIONS)                            
+                            pass                        
+                        case "10":
+                            # Update table: POSITIONS
+                            self.__update_table(c.TABLE_NAME_POSITIONS)                            
                             pass
                         
                         # Manage courses table 
-                        case "10":
+                        case "11":
                             # Create table: COURSES
                             self.__create_table(c.SQL_CREATE_TABLE_COURSES)
                             pass
-                        case "11":
+                        case "12":
                             # Add record to table: COURSES
                             self.__add_table_record(c.SQL_ADD_RECORD_COURSES)
                             pass
-                        case "12":
+                        case "13":
                             self.__drop_table(c.SQL_DROP_TABLE_COURSES)
                             self.__create_table(c.SQL_CREATE_TABLE_COURSES)
                             # Import table COURSES from csv
                             self.__import_from_csv(self.PATH_TO_CSV_COURSES, c.SQL_ADD_RECORD_COURSES)
                             pass
-                        case "13":
+                        case "14":
                             # Drop table: COURSES
-                            self.__drop_table(c.SQL_DROP_TABLE_COURSES)
-                            
+                            self.__drop_table(c.SQL_DROP_TABLE_COURSES)                            
+                            pass
+                        case "15":
+                            # Update table: COURSES
+                            self.__update_table(c.TABLE_NAME_COURSES)                            
                             pass
  
                         case _:
@@ -370,12 +375,11 @@ class School:
     
     def __drop_table(self, sql: str) -> None: self.__execute_sql_query(sql)  # TO DO -> Remove method
     
-    def __update_table(self, sql: str) -> None:
+    def __update_table(self, table_name: str) -> None:
         # Prepare data
         ## menu - input search field name
         ## menu - input field name to change
-        table_name = sql.split()[1].replace("\"", "")  # get table name from sql string
-        
+
         match table_name:
             case c.TABLE_NAME_PERSONS: fields_list = c.get_fields_list(c.PERSONS_HEADERS)
             case c.TABLE_NAME_POSITIONS: fields_list = c.get_fields_list(c.POSITIONS_HEADERS)
@@ -398,7 +402,9 @@ class School:
         
         params =[ [data_value,filter_value ]]  #
         #  UPDATE "persons" SET "FIELD_NAME_TO_CHANGE" = ? WHERE "filter_field_name" = ? 
-        sql = sql.replace("__FIELD_NAME_TO_CHANGE__",field_name_to_change).replace("__FIELD_NAME_TO_FILTER__", field_name_to_filter)    
+        sql = c.SQL_UPDATE_TABLE.replace("__TABLE_NAME__",table_name)\
+        .replace("__FIELD_NAME_TO_CHANGE__",field_name_to_change)\
+        .replace("__FIELD_NAME_TO_FILTER__", field_name_to_filter)    
         
         # UPDATE "persons" SET "first_name" = ? WHERE "person_id" = ?
         
